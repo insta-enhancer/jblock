@@ -26,14 +26,15 @@ app.use((req, res, next) => {
     next();
 });
 
-// 2. Silently proxy clean requests (supports chunked streaming responses)
+// 2. Silently proxy clean requests
 app.use('/', proxy(TARGET_URL, {
-    parseReqBody: false, // Essential for streaming AI responses properly
+    parseReqBody: false, 
     proxyTimeout: 60000
 }));
 
-// Hardcode to an obscure high port to avoid project conflicts
-const PORT = 9874; 
+// Use Railway's injected port variable dynamically, explicitly binding to 0.0.0.0
+const PORT = process.env.PORT || 3000; 
+app.listen(PORT, '0.0.0.0', () => console.log(`🔒 Firewall running cleanly on port ${PORT}`));
 app.listen(PORT, () => console.log(`🔒 Firewall running cleanly on port ${PORT}`));
 app.listen(PORT, () => console.log(`🔒 Firewall running cleanly on port ${PORT}`));
 app.listen(PORT, () => console.log(`🔒 Firewall running on port ${PORT}`));
