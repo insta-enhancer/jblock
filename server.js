@@ -1,5 +1,5 @@
 const express = require('express');
-const proxy = require('express-http-proxy'); // This matches the new package
+const proxy = require('express-http-proxy');
 const app = express();
 
 const TARGET_URL = process.env.REAL_NEW_API_URL;
@@ -32,7 +32,8 @@ app.use('/', proxy(TARGET_URL, {
     proxyTimeout: 60000
 }));
 
-const PORT = process.env.PORT || 3000;
+// FORCE PORT 3000 to prevent EADDRINUSE collision with New API on port 8080
+const PORT = 3000; 
 app.listen(PORT, () => console.log(`🔒 Firewall running on port ${PORT}`));
 app.listen(PORT, () => console.log(`🔒 Gatekeeper firewall running on port ${PORT}`));
                          
