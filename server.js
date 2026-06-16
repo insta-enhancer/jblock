@@ -32,8 +32,9 @@ app.use('/', proxy(TARGET_URL, {
     proxyTimeout: 60000
 }));
 
-// Hardcode to 5050 matching your updated Railway panel setting
-const PORT = 5050; 
+// Hardcode to an obscure high port to avoid project conflicts
+const PORT = 9874; 
+app.listen(PORT, () => console.log(`🔒 Firewall running cleanly on port ${PORT}`));
 app.listen(PORT, () => console.log(`🔒 Firewall running cleanly on port ${PORT}`));
 app.listen(PORT, () => console.log(`🔒 Firewall running on port ${PORT}`));
 app.listen(PORT, () => console.log(`🔒 Gatekeeper firewall running on port ${PORT}`));
